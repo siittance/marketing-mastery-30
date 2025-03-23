@@ -34,6 +34,23 @@ const Index = () => {
     const animatedElements = document.querySelectorAll('.section-animate');
     animatedElements.forEach(el => observer.observe(el));
 
+    // Scrolling smoothly to sections when clicking on nav links
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href) {
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
     // Cleanup observer on component unmount
     return () => observer.disconnect();
   }, []);

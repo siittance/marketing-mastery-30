@@ -1,6 +1,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import AnimateOnScroll from "./AnimateOnScroll";
 
 const HeroSection = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -14,19 +15,36 @@ const HeroSection = () => {
     const cta = ctaRef.current;
     const image = imageRef.current;
 
-    if (heading) heading.classList.add("animate-slide-down");
+    // Настраиваем последовательную анимацию
+    if (heading) {
+      heading.style.opacity = "0";
+      heading.style.animationFillMode = "forwards";
+      setTimeout(() => {
+        heading.style.opacity = "1";
+        heading.classList.add("animate-slide-down");
+      }, 100);
+    }
     
     setTimeout(() => {
-      if (subheading) subheading.classList.add("animate-slide-up");
-    }, 300);
+      if (subheading) {
+        subheading.style.opacity = "1";
+        subheading.classList.add("animate-slide-up");
+      }
+    }, 400);
     
     setTimeout(() => {
-      if (cta) cta.classList.add("animate-fade-in");
-    }, 600);
+      if (cta) {
+        cta.style.opacity = "1";
+        cta.classList.add("animate-fade-in");
+      }
+    }, 700);
     
     setTimeout(() => {
-      if (image) image.classList.add("animate-scale-up");
-    }, 900);
+      if (image) {
+        image.style.opacity = "1";
+        image.classList.add("animate-scale-up");
+      }
+    }, 1000);
   }, []);
 
   return (
@@ -35,24 +53,26 @@ const HeroSection = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 mb-12 md:mb-0">
-            <div className="inline-block px-3 py-1 bg-samsung-blue/10 text-samsung-blue rounded-full text-sm font-medium mb-4 opacity-0 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}>
+            <div className="inline-block px-3 py-1 bg-samsung-blue/10 text-samsung-blue rounded-full text-sm font-medium mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}>
               Эксклюзивно от Samsung
             </div>
             <h1 
               ref={headingRef}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 opacity-0 leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
             >
               Начните зарабатывать на <span className="text-gradient">интернет-маркетинге</span> уже через месяц!
             </h1>
             <p 
               ref={subheadingRef}
               className="text-lg md:text-xl text-gray-700 mb-8 max-w-xl opacity-0"
+              style={{ animationFillMode: "forwards" }}
             >
               Практический курс с обратной связью от экспертов. Разработан специально для молодых предпринимателей, которые хотят освоить продвижение в интернете.
             </p>
             <div
               ref={ctaRef}
               className="flex flex-col sm:flex-row items-center gap-4 opacity-0"
+              style={{ animationFillMode: "forwards" }}
             >
               <a href="#signup" className="cta-button group w-full sm:w-auto text-center shine-effect">
                 <span className="flex items-center justify-center">
@@ -68,6 +88,7 @@ const HeroSection = () => {
           <div 
             ref={imageRef}
             className="md:w-1/2 opacity-0"
+            style={{ animationFillMode: "forwards" }}
           >
             <div className="relative">
               <div className="absolute -top-6 -left-6 w-24 h-24 bg-samsung-blue/10 rounded-full animate-float-enhanced"></div>
