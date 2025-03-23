@@ -1,6 +1,6 @@
 
 import { useRef, useEffect, useState } from "react";
-import { Star, ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -32,14 +32,6 @@ const testimonials = [
 const TestimonialsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const goToPrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  const goToNext = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,25 +77,7 @@ const TestimonialsSection = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            <div className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-20">
-              <button 
-                onClick={goToPrev}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-samsung-blue hover:text-white transition-colors duration-300"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <div className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-20">
-              <button 
-                onClick={goToNext}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-samsung-blue hover:text-white transition-colors duration-300"
-              >
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
-            
+          <div className="relative">            
             {testimonials.map((testimonial, index) => (
               <div 
                 key={testimonial.id}
@@ -170,8 +144,8 @@ const TestimonialsSection = () => {
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`w-3 h-3 mx-1 rounded-full transition-all ${
-                  index === activeIndex ? 'bg-samsung-blue scale-125 shadow-md' : 'bg-gray-300'
+                className={`w-4 h-4 mx-2 rounded-full transition-all duration-300 hover:scale-125 ${
+                  index === activeIndex ? 'bg-samsung-blue scale-125 shadow-md' : 'bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`View testimonial ${index + 1}`}
               />
