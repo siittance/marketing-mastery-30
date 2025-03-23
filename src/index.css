@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -107,7 +106,8 @@
 }
 
 .glass-navbar {
-  @apply bg-white/70 backdrop-blur-md border-b border-white/20;
+  @apply bg-white/70 backdrop-blur-md border-b border-white/20 shadow-sm;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
 .benefit-card {
@@ -136,6 +136,16 @@
 .section-animate.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .nav-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-40;
+  }
+  
+  .mobile-menu {
+    @apply fixed top-[60px] left-0 right-0 bg-white z-50 shadow-lg animate-slide-down;
+  }
 }
 
 /* Custom scroll bar */
