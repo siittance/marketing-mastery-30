@@ -7,22 +7,25 @@ const benefits = [
     id: 1,
     title: "Пошаговые уроки",
     description: "Легко усваиваемый материал, разбитый на логичные модули",
-    icon: <Clock className="w-10 h-10 text-samsung-blue" />,
-    delay: 100
+    icon: <Clock className="w-10 h-10 text-white" />,
+    delay: 100,
+    gradient: "from-blue-500 to-cyan-400"
   },
   {
     id: 2,
     title: "Поддержка 24/7",
     description: "Персональный наставник и доступ к закрытому сообществу",
-    icon: <Users className="w-10 h-10 text-samsung-blue" />,
-    delay: 300
+    icon: <Users className="w-10 h-10 text-white" />,
+    delay: 300,
+    gradient: "from-purple-500 to-indigo-500"
   },
   {
     id: 3,
     title: "Сертификат по окончании",
     description: "Официальный документ от Samsung повысит ваш статус",
-    icon: <Medal className="w-10 h-10 text-samsung-blue" />,
-    delay: 500
+    icon: <Medal className="w-10 h-10 text-white" />,
+    delay: 500,
+    gradient: "from-amber-500 to-orange-400"
   }
 ];
 
@@ -54,7 +57,7 @@ const BenefitsSection = () => {
   }, []);
   
   return (
-    <section id="benefits" className="py-20 bg-samsung-gray">
+    <section id="benefits" className="py-20 bg-samsung-gray wave-decoration">
       <div 
         ref={sectionRef}
         className="container mx-auto px-4 section-animate"
@@ -70,11 +73,13 @@ const BenefitsSection = () => {
           {benefits.map((benefit) => (
             <div 
               key={benefit.id} 
-              className="benefit-card opacity-0 animate-fade-in" 
+              className="benefit-card opacity-0 animate-fade-in shine-effect" 
               style={{ animationDelay: `${benefit.delay}ms`, animationFillMode: "forwards" }}
             >
               <div className="mb-6">
-                {benefit.icon}
+                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${benefit.gradient} flex items-center justify-center shadow-lg`}>
+                  {benefit.icon}
+                </div>
               </div>
               <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
               <p className="text-gray-600">{benefit.description}</p>

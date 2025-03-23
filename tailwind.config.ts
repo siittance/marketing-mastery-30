@@ -21,7 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
-				display: ['SF Pro Display', 'Inter', 'sans-serif']
+				display: ['Playfair Display', 'Inter', 'sans-serif']
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -109,6 +109,10 @@ export default {
 				scaleUp: {
 					from: { transform: 'scale(0.95)', opacity: '0' },
 					to: { transform: 'scale(1)', opacity: '1' }
+				},
+				shine: {
+					'0%': { backgroundPosition: '-100% 100%' },
+					'100%': { backgroundPosition: '200% 100%' }
 				}
 			},
 			animation: {
@@ -118,7 +122,8 @@ export default {
 				'fade-in': 'fadeIn 0.6s ease-out',
 				'slide-up': 'slideUp 0.6s ease-out',
 				'slide-down': 'slideDown 0.6s ease-out',
-				'scale-up': 'scaleUp 0.6s ease-out'
+				'scale-up': 'scaleUp 0.6s ease-out',
+				'shine': 'shine 3s ease-in-out infinite'
 			},
 			backdropBlur: {
 				xs: '2px',

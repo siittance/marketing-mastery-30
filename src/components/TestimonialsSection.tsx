@@ -1,6 +1,6 @@
 
 import { useRef, useEffect, useState } from "react";
-import { Star } from "lucide-react";
+import { Star, ArrowLeft, ArrowRight, Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -33,6 +33,14 @@ const TestimonialsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const goToPrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -64,7 +72,7 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-samsung-blue/5 to-samsung-light-blue/5">
+    <section id="testimonials" className="py-20 bg-gradient-to-br from-samsung-blue/5 to-samsung-light-blue/5 dot-pattern">
       <div 
         ref={sectionRef}
         className="container mx-auto px-4 section-animate"
@@ -78,32 +86,58 @@ const TestimonialsSection = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
+            <div className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-20">
+              <button 
+                onClick={goToPrev}
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-samsung-blue hover:text-white transition-colors duration-300"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-20">
+              <button 
+                onClick={goToNext}
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-samsung-blue hover:text-white transition-colors duration-300"
+              >
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+            
             {testimonials.map((testimonial, index) => (
               <div 
                 key={testimonial.id}
                 className={`glass-card rounded-2xl p-8 transition-all duration-500 absolute inset-0 ${
-                  index === activeIndex ? 'opacity-100 z-10 translate-y-0' : 'opacity-0 -z-10 translate-y-4'
+                  index === activeIndex ? 'opacity-100 z-10 translate-y-0 scale-100' : 'opacity-0 -z-10 translate-y-4 scale-95'
                 }`}
               >
-                <div className="flex items-center mb-6">
-                  <div className="mr-4">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
+                <div className="absolute -top-6 -left-2 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-samsung-blue to-samsung-light-blue rounded-full shadow-lg">
+                  <Quote className="w-6 h-6 text-white" />
+                </div>
+                
+                <div className="flex flex-col md:flex-row items-start md:items-center mb-6 pt-4">
+                  <div className="mr-4 mb-4 md:mb-0">
+                    <div className="w-16 h-16 rounded-full border-4 border-white shadow-lg overflow-hidden">
+                      <img 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold">{testimonial.name}</h4>
                     <p className="text-gray-600">{testimonial.role}</p>
                     <div className="flex mt-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-samsung-blue text-samsung-blue" />
+                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                   </div>
                 </div>
-                <blockquote className="text-lg italic">"{testimonial.content}"</blockquote>
+                <blockquote className="text-lg italic relative pl-6 border-l-4 border-samsung-blue/20 bg-white/50 p-4 rounded-r-lg">
+                  "{testimonial.content}"
+                </blockquote>
               </div>
             ))}
           </div>
@@ -111,7 +145,7 @@ const TestimonialsSection = () => {
           {/* Testimonial height placeholder */}
           <div className="invisible">
             <div className="glass-card rounded-2xl p-8">
-              <div className="flex items-center mb-6">
+              <div className="flex items-center mb-6 pt-4">
                 <div className="mr-4">
                   <div className="w-16 h-16 rounded-full bg-gray-200" />
                 </div>
@@ -125,7 +159,7 @@ const TestimonialsSection = () => {
                   </div>
                 </div>
               </div>
-              <blockquote className="text-lg italic">
+              <blockquote className="text-lg italic relative pl-6 border-l-4 border-samsung-blue/20 p-4">
                 "Длинный отзыв, который обеспечивает необходимую высоту для контейнера, чтобы избежать скачков при смене отзывов. Это пример длинного отзыва, который может быть у нас на сайте."
               </blockquote>
             </div>
@@ -137,7 +171,7 @@ const TestimonialsSection = () => {
                 key={index}
                 onClick={() => setActiveIndex(index)}
                 className={`w-3 h-3 mx-1 rounded-full transition-all ${
-                  index === activeIndex ? 'bg-samsung-blue scale-125' : 'bg-gray-300'
+                  index === activeIndex ? 'bg-samsung-blue scale-125 shadow-md' : 'bg-gray-300'
                 }`}
                 aria-label={`View testimonial ${index + 1}`}
               />

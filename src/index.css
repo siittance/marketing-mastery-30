@@ -1,4 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -103,28 +105,58 @@
 
 .glass-card {
   @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-lg;
+  transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+  @apply shadow-xl bg-white/90 transform -translate-y-1;
 }
 
 .glass-navbar {
-  @apply bg-white/70 backdrop-blur-md border-b border-white/20 shadow-sm;
+  @apply bg-white/70 backdrop-blur-md border-b border-white/20;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
 .benefit-card {
-  @apply relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:shadow-lg;
+  @apply relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:shadow-xl;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .benefit-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.benefit-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s ease;
+}
+
+.benefit-card:hover::before {
+  opacity: 0.3;
+  transform: scale(1);
 }
 
 .cta-button {
-  @apply bg-samsung-blue text-white font-medium py-4 px-8 rounded-full transition-all duration-300 
+  @apply text-white font-medium py-4 px-8 rounded-full transition-all duration-300 
          hover:shadow-lg hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-samsung-blue/50 focus:ring-offset-2;
   background: linear-gradient(135deg, #1428A0 0%, #3AADEE 100%);
+  box-shadow: 0 4px 15px rgba(20, 40, 160, 0.2);
+}
+
+.cta-button:hover {
+  background: linear-gradient(135deg, #1428A0 10%, #3AADEE 90%);
+  box-shadow: 0 8px 25px rgba(20, 40, 160, 0.3);
 }
 
 .section-animate {
@@ -138,6 +170,52 @@
   transform: translateY(0);
 }
 
+.hero-gradient {
+  background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
+  position: relative;
+}
+
+.hero-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(58, 173, 238, 0.1) 0%, rgba(20, 40, 160, 0.05) 70%, transparent 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #1428A0 0%, #3AADEE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.program-card {
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.program-card::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+}
+
+.program-card:hover::after {
+  top: 0;
+  left: 0;
+}
+
 @media (max-width: 768px) {
   .nav-overlay {
     @apply fixed inset-0 bg-black bg-opacity-50 z-40;
@@ -146,6 +224,28 @@
   .mobile-menu {
     @apply fixed top-[60px] left-0 right-0 bg-white z-50 shadow-lg animate-slide-down;
   }
+}
+
+/* Decorative elements */
+.dot-pattern {
+  background-image: radial-gradient(rgba(20, 40, 160, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.wave-decoration {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-decoration::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%231428A0'%3E%3C/path%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%231428A0'%3E%3C/path%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%231428A0'%3E%3C/path%3E%3C/svg%3E") repeat-x;
+  background-size: 1200px 15px;
 }
 
 /* Custom scroll bar */
@@ -158,10 +258,51 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: linear-gradient(135deg, #1428A0 0%, #3AADEE 100%);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #888;
+  background: linear-gradient(135deg, #1428A0 30%, #3AADEE 100%);
+}
+
+/* Animation enhancements */
+@keyframes float-enhanced {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(2deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(8px) rotate(-2deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.animate-float-enhanced {
+  animation: float-enhanced 8s ease-in-out infinite;
+}
+
+/* Shine effect for cards */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  transition: all 0.6s ease;
+}
+
+.shine-effect:hover::after {
+  top: 0;
+  left: 100%;
 }
